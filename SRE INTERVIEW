@@ -1,0 +1,290 @@
+k8s 
+
+
+Here are some DevOps Engineer scenario-based interview questions tailored for an SRE (Site Reliability Engineer) role, along with real-time examples and suggested answers.
+
+
+---
+
+1. Incident Management & Troubleshooting
+
+Question:
+
+Your production system is experiencing high latency, and users are reporting slow response times. How would you approach troubleshooting?
+
+Answer:
+
+Example Scenario: Your microservices-based e-commerce platform is facing a sudden increase in API response time.
+
+Steps to Troubleshoot:
+
+1. Assess the impact: Check monitoring dashboards (Grafana, Datadog) to confirm if this is an isolated or widespread issue.
+
+
+2. Check service health: Use Prometheus metrics or ELK logs to analyze CPU, memory, and network usage.
+
+
+3. Analyze traffic spikes: Use AWS CloudWatch/Kibana to check if a sudden surge in requests is causing the latency.
+
+
+4. Identify bottlenecks: Use kubectl top pod (for Kubernetes) or htop (for servers) to find overloaded resources.
+
+
+5. Check database performance: Run slow query logs (SHOW FULL PROCESSLIST in MySQL) or connection pool metrics.
+
+
+6. Apply fixes: Scale up pods in Kubernetes (kubectl scale deployment) or add caching (Redis) if needed.
+
+
+7. Post-mortem: Document the issue, update runbooks, and automate alerts to prevent future occurrences.
+
+
+
+
+---
+
+2. CI/CD Pipeline Failure
+
+Question:
+
+Your deployment pipeline failed while pushing a new release to production. How would you debug and resolve this?
+
+Answer:
+
+Example Scenario: Your Jenkins pipeline fails at the deployment stage, preventing a new feature from going live.
+
+Steps to Debug & Fix:
+
+1. Check the error logs: Look at Jenkins logs (/var/log/jenkins/jenkins.log) or GitHub Actions failure messages.
+
+
+2. Verify code changes: Ensure recent commits don’t introduce syntax errors (git log -p).
+
+
+3. Test locally: Run docker build or terraform plan to reproduce the issue.
+
+
+4. Check secrets/configs: Missing environment variables (AWS_ACCESS_KEY_ID) might cause failures.
+
+
+5. Rollback if necessary: Use kubectl rollout undo deployment to revert to a stable version.
+
+
+6. Fix & re-trigger: Apply the fix, trigger the pipeline (jenkins restart, github actions rerun), and monitor deployment.
+
+
+
+
+---
+
+3. High CPU Usage in a Kubernetes Cluster
+
+Question:
+
+Your Kubernetes pods are consuming excessive CPU, affecting application performance. How do you handle this?
+
+Answer:
+
+Example Scenario: An application running on AWS EKS is experiencing throttling due to high CPU usage.
+
+Troubleshooting Steps:
+
+1. Identify high CPU-consuming pods:
+
+kubectl top pod --sort-by=cpu
+
+
+2. Check application logs for inefficient code execution (kubectl logs <pod-name>).
+
+
+3. Analyze resource requests and limits in pod definitions (kubectl describe pod).
+
+
+4. Scale the deployment if necessary:
+
+kubectl scale deployment my-app --replicas=4
+
+
+5. Optimize application performance (reduce infinite loops, optimize DB queries).
+
+
+6. Use Horizontal Pod Autoscaler (HPA) to auto-scale based on CPU:
+
+kubectl autoscale deployment my-app --cpu-percent=70 --min=2 --max=10
+
+
+
+
+---
+
+4. Database Connection Failures in Production
+
+Question:
+
+Your application is intermittently failing to connect to the database. How would you diagnose and fix it?
+
+Answer:
+
+Example Scenario: A microservice using PostgreSQL (hosted on AWS RDS) occasionally throws connection timeout errors.
+
+Steps to Troubleshoot:
+
+1. Check database availability:
+
+nc -zv <db-host> <port>  # Netcat test
+
+
+2. Monitor database connections:
+
+SELECT * FROM pg_stat_activity;
+
+
+3. Increase connection pool size in the application (e.g., max_connections in PostgreSQL).
+
+
+4. Use a database proxy (PgBouncer) to optimize connection handling.
+
+
+5. Check network latency using ping or AWS VPC Flow Logs.
+
+
+6. Fix & restart services: Restart the affected pod (kubectl rollout restart deployment).
+
+
+
+
+---
+
+5. Handling a Security Breach
+
+Question:
+
+A security vulnerability is found in your infrastructure due to an exposed AWS S3 bucket. What actions would you take?
+
+Answer:
+
+Example Scenario: A public AWS S3 bucket was accidentally exposed, leading to potential data leaks.
+
+Immediate Actions:
+
+1. Identify the exposure: Use AWS GuardDuty or aws s3 ls s3://<bucket-name>/ --recursive.
+
+
+2. Restrict access immediately:
+
+aws s3api put-bucket-acl --bucket my-bucket --acl private
+
+
+3. Rotate credentials: Update IAM keys and notify affected teams.
+
+
+4. Scan logs for unauthorized access (AWS CloudTrail logs).
+
+
+5. Implement IAM least privilege policy:
+
+{
+  "Effect": "Deny",
+  "Principal": "*",
+  "Action": "s3:*",
+  "Resource": "arn:aws:s3:::my-bucket/*"
+}
+
+
+6. Conduct a security review and enforce encryption policies.
+
+
+
+
+---
+
+6. Terraform Deployment Failed
+
+Question:
+
+Your Terraform apply command fails while provisioning infrastructure. How do you resolve it?
+
+Answer:
+
+Example Scenario: Running terraform apply results in an AWS resource creation failure.
+
+Troubleshooting Steps:
+
+1. Check error logs: Look for specific error messages in Terraform output.
+
+
+2. Validate Terraform syntax:
+
+terraform validate
+
+
+3. Review state file conflicts (terraform state list).
+
+
+4. Manually destroy faulty resources if needed:
+
+terraform destroy -target aws_instance.example
+
+
+5. Retry Terraform apply with debug logs:
+
+TF_LOG=DEBUG terraform apply
+
+
+6. Ensure correct IAM permissions for Terraform execution role.
+
+
+
+
+---
+
+7. Zero-Downtime Deployment Strategy
+
+Question:
+
+How would you ensure zero downtime during a Kubernetes application deployment?
+
+Answer:
+
+Example Scenario: Deploying a new version of a web application without disrupting users.
+
+Best Practices for Zero Downtime:
+
+1. Use Rolling Updates:
+
+strategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxUnavailable: 1
+    maxSurge: 1
+
+
+2. Use Blue-Green Deployment (deploy new version alongside old and switch traffic).
+
+
+3. Canary Deployment: Route 10% traffic to new version, gradually increase.
+
+
+4. Monitor deployment health using Prometheus or ELK.
+
+
+5. Feature Flags: Toggle new features without redeploying.
+
+
+
+
+---
+
+Final Tips for an SRE Interview
+
+Be prepared to demonstrate troubleshooting skills.
+
+Use real-life examples from your experience.
+
+Show your automation mindset (IaC, CI/CD, self-healing systems).
+
+Understand observability tools (Prometheus, ELK, Datadog).
+
+
+Would you like additional questions or deep dives into any of these topics?
+

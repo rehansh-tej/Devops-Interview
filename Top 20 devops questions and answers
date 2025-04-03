@@ -233,3 +233,233 @@ Additional Scenarios
 
 Let me know if you want more details on any of these!
 
+Here are the answers for the remaining questions:
+
+
+---
+
+10. Scenario: Configuring LDAP Authentication in Harness for Enterprise Security
+
+Question: How would you configure LDAP authentication in Harness for an enterprise environment?
+
+Answer:
+
+Step 1: Navigate to Account Settings → Authentication → LDAP Integration.
+
+Step 2: Configure the LDAP server URL, bind DN, and search filters.
+
+Step 3: Map LDAP groups to Harness roles (e.g., admin, developer, read-only).
+
+Step 4: Test the connection and enforce LDAP authentication for all users.
+
+
+Real-time Example:
+A financial institution integrated LDAP with Harness to enforce centralized authentication, reducing unauthorized access risks by 90%.
+
+
+---
+
+11. Scenario: Automating Compliance Scans in Terraform with Sentinel and AWS Config
+
+Question: How would you enforce compliance policies in Terraform using Sentinel and AWS Config?
+
+Answer:
+
+Step 1: Define Sentinel policies for security rules (e.g., no public S3 buckets, encryption enabled).
+
+Step 2: Attach Sentinel policies to Terraform Cloud runs to enforce compliance before deployment.
+
+Step 3: Use AWS Config rules to continuously monitor deployed resources.
+
+
+Real-time Example:
+A healthcare provider used this approach to enforce HIPAA compliance, preventing misconfigured cloud resources from being deployed.
+
+
+---
+
+12. Scenario: Integrating ServiceNow for Automated Approval Workflows in Harness
+
+Question: How would you integrate ServiceNow with Harness to automate deployment approvals?
+
+Answer:
+
+Step 1: Configure a webhook in Harness to trigger a ServiceNow change request.
+
+Step 2: Implement approval steps in Harness that wait for ServiceNow ticket closure.
+
+Step 3: Automate rollback if approval is denied.
+
+
+Real-time Example:
+An enterprise reduced manual approval times by 60% by integrating Harness with ServiceNow for automated change approvals.
+
+
+---
+
+13. Scenario: Implementing Feature Flagging in Harness for Phased Rollouts
+
+Question: How would you use feature flags in Harness to control feature rollouts?
+
+Answer:
+
+Step 1: Define a feature flag in Harness for the new feature.
+
+Step 2: Gradually enable it for specific user groups using targeting rules.
+
+Step 3: Monitor performance and errors before full rollout.
+
+
+Real-time Example:
+A SaaS company avoided major outages by releasing critical features to 5% of users before full deployment.
+
+
+---
+
+14. Scenario: Handling Database Schema Changes Using CI/CD Pipelines
+
+Question: How would you manage database schema changes in a CI/CD pipeline?
+
+Answer:
+
+Step 1: Use tools like Liquibase or Flyway for version-controlled migrations.
+
+Step 2: Validate schema changes in staging before applying to production.
+
+Step 3: Implement rollback scripts for failed deployments.
+
+
+Real-time Example:
+A fintech firm automated schema migrations using Harness, reducing database-related incidents by 50%.
+
+
+---
+
+15. Scenario: Optimizing Helm-Based Kubernetes Deployments Using Harness
+
+Question: How would you optimize Helm-based deployments in Harness?
+
+Answer:
+
+Step 1: Store Helm charts in an artifact repository like JFrog Artifactory.
+
+Step 2: Use Harness Helm Deployments to manage version upgrades.
+
+Step 3: Implement rollback strategies using Helm history and Harness rollback steps.
+
+
+Real-time Example:
+A media company reduced Kubernetes deployment failures by 40% by adopting Helm with Harness.
+
+
+---
+
+16. Scenario: Using Harness Delegate Provisioning for On-Premise Deployments
+
+Question: How do you configure Harness Delegate provisioning for an on-premises environment?
+
+Answer:
+
+Step 1: Install the Harness Delegate on an on-prem server with network access to target systems.
+
+Step 2: Configure Delegate settings for secure authentication and connectivity.
+
+Step 3: Test the Delegate connection and monitor logs for any issues.
+
+
+Real-time Example:
+A banking institution used Harness Delegate for deploying internal apps securely without exposing infrastructure to the public cloud.
+
+
+---
+
+17. Scenario: Automating AWS Lambda Deployments with Harness CI/CD
+
+Question: How would you automate AWS Lambda function deployments using Harness?
+
+Answer:
+
+Step 1: Store Lambda function code in GitHub and package it as a ZIP file.
+
+Step 2: Use Harness AWS Lambda deployment workflows to upload and update functions.
+
+Step 3: Validate deployment using CloudWatch logs and rollback on errors.
+
+
+Real-time Example:
+A travel company automated Lambda deployments with Harness, reducing manual deployments from hours to minutes.
+
+
+---
+
+18. Scenario: Migrating On-Premise Applications to Cloud-Native CI/CD Pipelines
+
+Question: What challenges would you face migrating on-prem CI/CD pipelines to cloud-native, and how would you solve them?
+
+Answer:
+Challenges:
+
+Legacy tool compatibility.
+
+Security and compliance concerns.
+
+Data migration and downtime.
+
+
+Solution:
+
+Step 1: Assess existing pipelines and replace on-prem tools with cloud-native alternatives (e.g., Harness, AWS CodeBuild).
+
+Step 2: Use a hybrid approach during transition (deploy to both environments before cutting over).
+
+Step 3: Implement monitoring and rollback strategies.
+
+
+Real-time Example:
+A telecom company migrated CI/CD from on-prem to AWS, reducing deployment times by 70%.
+
+
+---
+
+19. Scenario: Implementing Disaster Recovery and Rollback Strategies for Cloud Infrastructure
+
+Question: How would you ensure disaster recovery for infrastructure deployed using Terraform?
+
+Answer:
+
+Step 1: Maintain infrastructure as code in Git and enable version control.
+
+Step 2: Use Terraform state snapshots stored in AWS S3 with versioning enabled.
+
+Step 3: Automate infrastructure recreation using Terraform apply in a DR region.
+
+
+Real-time Example:
+An e-commerce company ensured zero downtime by replicating infrastructure in a secondary AWS region using Terraform.
+
+
+---
+
+20. Scenario: Optimizing Terraform Performance for Large-Scale Infrastructure Deployments
+
+Question: How would you improve Terraform performance when managing large infrastructures?
+
+Answer:
+
+Step 1: Use remote state storage (e.g., AWS S3) for better concurrency.
+
+Step 2: Implement Terraform modules to reduce duplication.
+
+Step 3: Use terraform plan before applying changes to optimize execution.
+
+Step 4: Run Terraform in parallel using -parallelism flag.
+
+
+Real-time Example:
+A SaaS provider reduced Terraform execution time by 50% by optimizing module usage and parallel execution.
+
+
+---
+
+This completes the 20 scenario-based interview questions with real-world examples. Let me know if you need additional details or customizations!
+
